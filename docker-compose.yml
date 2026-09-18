@@ -1,0 +1,35 @@
+# Agri AI — local production stack (app + PostgreSQL)
+# Usage: docker compose up --build
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://agri:agri@db:5432/agri
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - audio_data:/app/audio_out
+      - reports_data:/app/reports
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: agri
+      POSTGRES_PASSWORD: agri
+      POSTGRES_DB: agri
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agri"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pg_data:
+  audio_data:
+  reports_data:

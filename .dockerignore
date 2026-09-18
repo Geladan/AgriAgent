@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+*.py[cod]
+.env
+agri_ai.db
+*.db
+.git/
+.gitignore
+reports/*
+audio_out/*
+tests/
+mock/
+scripts/
+*.md
+!README.md

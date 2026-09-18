@@ -88,6 +88,43 @@ def test_whatsapp_unknown_question():
     assert len(r.text) > 20
 
 
+def test_whatsapp_signature_required():
+    """With a Twilio token configured, unsigned requests are rejected."""
+    from app import config
+    old = config.TWILIO_AUTH_TOKEN
+    config.TWILIO_AUTH_TOKEN = "testtoken"
+    try:
+        r = client.post("/whatsapp/webhook", data={
+            "From": "whatsapp:+233200000001", "Body": "hello",
+        })
+        assert r.status_code == 403
+    finally:
+        config.TWILIO_AUTH_TOKEN = old
+
+
+def test_whatsapp_signature_valid():
+    """A correctly signed Twilio request is accepted."""
+    import base64
+    import hashlib
+    import hmac
+
+    from app import config
+    old = config.TWILIO_AUTH_TOKEN
+    config.TWILIO_AUTH_TOKEN = "testtoken"
+    try:
+        params = {"From": "whatsapp:+233200000001", "Body": "hello"}
+        url = "http://testserver/whatsapp/webhook"
+        url += "".join(f"{k}{v}" for k, v in sorted(params.items()))
+        sig = base64.b64encode(
+            hmac.new(b"testtoken", url.encode(), hashlib.sha1).digest()
+        ).decode()
+        r = client.post("/whatsapp/webhook", data=params,
+                        headers={"X-Twilio-Signature": sig})
+        assert r.status_code == 200
+    finally:
+        config.TWILIO_AUTH_TOKEN = old
+
+
 def test_api_translate():
     r = client.get("/api/translate", params={"text": "thank you"})
     assert r.status_code == 200

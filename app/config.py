@@ -43,7 +43,7 @@ AT_SENDER_ID = os.getenv("AT_SENDER_ID", "")
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///agri_ai.db")
 
 # --- Paths -----------------------------------------------------------------
-KB_DIR = PROJECT_ROOT / "kb_docs"
+KB_DIR = PROJECT_ROOT / "app" / "kb_docs"
 AUDIO_DIR = PROJECT_ROOT / "audio_out"
 
 

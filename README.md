@@ -67,6 +67,27 @@ venv\Scripts\python.exe scripts\daily_brief.py                                  
 venv\Scripts\python.exe scripts\push_brief.py                                   # brief → farmers (Twilio/AT/mock log)
 ```
 
+## Production deployment
+
+```bash
+# Option A — Docker (any host: Railway, Render, Fly.io, VPS)
+docker build -t agri-ai .
+docker run -p 8000:8000 --env-file .env agri-ai
+
+# Option B — full stack with PostgreSQL
+docker compose up --build
+```
+
+Then point your channel webhooks at `https://<your-domain>/whatsapp/webhook`, `/ussd/webhook`, `/voice/webhook`.
+
+Production checklist:
+- Set `DATABASE_URL` to PostgreSQL (Supabase or the compose `db` service)
+- Set `TWILIO_AUTH_TOKEN` — webhook signature verification is then enforced automatically (Twilio HMAC-SHA1)
+- Set `AI_PROVIDER` to a real provider (`omniroute`, `openrouter`, `openai`, `openwork`) with a working key
+- Set `OPENWEATHER_API_KEY` for live weather
+- Replace `YOUR_NGROK_URL` in `app/routes/voice.py` with your real domain
+- Africa's Talking USSD callbacks have no signature header — restrict the callback to AT's source IPs in the AT dashboard
+
 ## Tests
 
 ```powershell
@@ -78,7 +99,9 @@ venv\Scripts\python.exe -m pytest tests\test_mock.py -v
 - [x] WhatsApp + USSD + Voice webhooks (mock mode)
 - [x] Farmer profiles, RAG, weather, Twi translation, TTS pipeline
 - [x] Daily brief + push scripts
-- [ ] Real LLM provider key (OpenRouter free tier)
+- [x] Twilio webhook signature verification
+- [x] Docker + docker-compose (PostgreSQL) for production
+- [ ] Real LLM provider key (OmniRoute/OpenRouter free tier)
 - [ ] Twi voice recordings for the phrase library
 - [ ] Live weather key
 - [ ] Twilio / Africa's Talking credentials for real channels
