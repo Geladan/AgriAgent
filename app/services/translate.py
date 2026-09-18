@@ -78,6 +78,10 @@ def translate_to_twi(text: str) -> str:
                 return _call_openai_compatible(
                     config.OPENWORK_API_KEY, config.OPENWORK_MODEL,
                     config.OPENWORK_BASE_URL, instruction, "", None)
+            if config.AI_PROVIDER == "omniroute":
+                return _call_openai_compatible(
+                    config.OMNIROUTE_API_KEY, config.OMNIROUTE_MODEL,
+                    config.OMNIROUTE_BASE_URL, instruction, "", None)
         except Exception:  # noqa: BLE001
             pass
 

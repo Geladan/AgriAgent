@@ -9,7 +9,7 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # --- AI provider -----------------------------------------------------------
-# Options: "mock" (no key needed), "openrouter", "openai", "openwork"
+# Options: "mock" (no key needed), "openrouter", "openai", "openwork", "omniroute"
 AI_PROVIDER = os.getenv("AI_PROVIDER", "mock").lower()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
@@ -21,6 +21,11 @@ OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 OPENWORK_API_KEY = os.getenv("OPENWORK_API_KEY", "")
 OPENWORK_MODEL = os.getenv("OPENWORK_MODEL", "gpt-4o-mini")
 OPENWORK_BASE_URL = os.getenv("OPENWORK_BASE_URL", "https://api.openworklabs.com/v1")
+
+# OmniRoute — self-hosted AI gateway (default: local instance on port 20128)
+OMNIROUTE_API_KEY = os.getenv("OMNIROUTE_API_KEY", "")
+OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "auto/best-chat")
+OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "http://localhost:20128/v1")
 
 # --- Weather ---------------------------------------------------------------
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")

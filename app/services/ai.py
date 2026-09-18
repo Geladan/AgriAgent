@@ -68,6 +68,10 @@ def ask_ai(question: str, context: str = "", farmer_profile: dict | None = None)
             return _call_openai_compatible(
                 config.OPENWORK_API_KEY, config.OPENWORK_MODEL,
                 config.OPENWORK_BASE_URL, question, context, farmer_profile)
+        if provider == "omniroute":
+            return _call_openai_compatible(
+                config.OMNIROUTE_API_KEY, config.OMNIROUTE_MODEL,
+                config.OMNIROUTE_BASE_URL, question, context, farmer_profile)
     except Exception as exc:  # noqa: BLE001 — fall back so the demo keeps working
         return (f"[{provider} unavailable ({exc.__class__.__name__}) — using built-in mock]\n\n"
                 + mock_answer(question, context, farmer_profile))

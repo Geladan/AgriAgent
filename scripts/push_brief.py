@@ -3,17 +3,20 @@
 Without keys configured, it logs the messages to reports/push_log_<date>.md
 so the pipeline is testable end-to-end in mock mode.
 
-Usage:  venv\Scripts\python.exe scripts\push_brief.py
+Usage:  venv\\Scripts\\python.exe scripts\\push_brief.py
 """
 import logging
+import sys
 from datetime import date
 from pathlib import Path
 
-import requests
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app import config
-from app.database import Farmer, SessionLocal
-from app.services.brief import build_brief_text
+import requests  # noqa: E402
+
+from app import config  # noqa: E402
+from app.database import Farmer, SessionLocal  # noqa: E402
+from app.services.brief import build_brief_text  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("push_brief")
