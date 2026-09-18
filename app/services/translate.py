@@ -82,6 +82,10 @@ def translate_to_twi(text: str) -> str:
                 return _call_openai_compatible(
                     config.OMNIROUTE_API_KEY, config.OMNIROUTE_MODEL,
                     config.OMNIROUTE_BASE_URL, instruction, "", None)
+            if config.AI_PROVIDER == "deepseek":
+                return _call_openai_compatible(
+                    config.DEEPSEEK_API_KEY, config.DEEPSEEK_MODEL,
+                    config.DEEPSEEK_BASE_URL, instruction, "", None)
         except Exception:  # noqa: BLE001
             pass
 

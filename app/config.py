@@ -9,7 +9,8 @@ load_dotenv()
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # --- AI provider -----------------------------------------------------------
-# Options: "mock" (no key needed), "openrouter", "openai", "openwork", "omniroute"
+# Options: "mock" (no key needed), "openrouter", "openai", "openwork",
+#          "omniroute", "deepseek"
 AI_PROVIDER = os.getenv("AI_PROVIDER", "mock").lower()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
@@ -26,6 +27,11 @@ OPENWORK_BASE_URL = os.getenv("OPENWORK_BASE_URL", "https://api.openworklabs.com
 OMNIROUTE_API_KEY = os.getenv("OMNIROUTE_API_KEY", "")
 OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "auto/best-chat")
 OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "http://localhost:20128/v1")
+
+# DeepSeek — prepaid OpenAI-compatible API (top up at platform.deepseek.com)
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
+DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
+DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
 
 # --- Weather ---------------------------------------------------------------
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")

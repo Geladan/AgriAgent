@@ -72,6 +72,10 @@ def ask_ai(question: str, context: str = "", farmer_profile: dict | None = None)
             return _call_openai_compatible(
                 config.OMNIROUTE_API_KEY, config.OMNIROUTE_MODEL,
                 config.OMNIROUTE_BASE_URL, question, context, farmer_profile)
+        if provider == "deepseek":
+            return _call_openai_compatible(
+                config.DEEPSEEK_API_KEY, config.DEEPSEEK_MODEL,
+                config.DEEPSEEK_BASE_URL, question, context, farmer_profile)
     except Exception as exc:  # noqa: BLE001 — fall back so the demo keeps working
         return (f"[{provider} unavailable ({exc.__class__.__name__}) — using built-in mock]\n\n"
                 + mock_answer(question, context, farmer_profile))
