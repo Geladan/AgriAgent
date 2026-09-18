@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# Secrets — never commit .env (contains API keys)
+.env
+
+# Runtime data
+agri_ai.db
+*.db
+
+# Generated output — keep folders, ignore contents
+audio_out/*
+!audio_out/.gitkeep
+!audio_out/phrases/
+!audio_out/phrases/.gitkeep
+reports/*
+!reports/.gitkeep
+
+# OS
+Thumbs.db
+.DS_Store
