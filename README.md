@@ -67,6 +67,26 @@ venv\Scripts\python.exe scripts\daily_brief.py                                  
 venv\Scripts\python.exe scripts\push_brief.py                                   # brief → farmers (Twilio/AT/mock log)
 ```
 
+## Channels
+
+### WhatsApp — Meta Cloud API (primary)
+Webhook endpoint: `POST /whatsapp/meta/webhook`
+
+Configure in [Meta for Developers](https://developers.facebook.com) → WhatsApp → Configuration → Webhooks:
+- **Callback URL:** `https://<your-domain>/whatsapp/meta/webhook`
+- **Verify token:** the same value as `WHATSAPP_VERIFY_TOKEN` in `.env`
+
+Meta calls `GET` first to verify the endpoint (the app echoes `hub.challenge`), then `POST`s JSON messages. Replies go back through the Cloud API. Set `WHATSAPP_APP_SECRET` to additionally verify `X-Hub-Signature-256`.
+
+### WhatsApp — Twilio (alternative)
+`POST /whatsapp/webhook` (form-encoded, signature-verified when `TWILIO_AUTH_TOKEN` is set)
+
+### USSD — Africa's Talking
+`POST /ussd/webhook`
+
+### Voice — Twilio
+`POST /voice/webhook`
+
 ## Production deployment
 
 ```bash

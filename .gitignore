@@ -9,6 +9,9 @@ venv/
 # Runtime data
 agri_ai.db
 *.db
+server.pid
+logs_server*.txt
+.pytest_cache/
 
 # Generated output — keep folders, ignore contents
 audio_out/*
