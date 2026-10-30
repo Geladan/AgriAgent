@@ -9,8 +9,10 @@ venv/
 # Runtime data
 agri_ai.db
 *.db
-server.pid
+*.pid
 logs_server*.txt
+logs_bot*.txt
+logs_sim*.txt
 .pytest_cache/
 
 # Generated output — keep folders, ignore contents
